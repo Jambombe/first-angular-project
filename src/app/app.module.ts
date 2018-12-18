@@ -12,6 +12,9 @@ import { ListItemComponent } from './listItem.component';
   imports: [
     BrowserModule
   ],
+  exports: [
+    AppComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

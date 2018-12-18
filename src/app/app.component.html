@@ -10,10 +10,6 @@
 
 <div>
   <ul>
-    <!--<li *ngFor="let todo of todos" (dblclick)="updateTodo(todo)">-->
-      <!--{{todo}}-->
-      <!--<button (click)="delTodo(todo)">x</button>-->
-    <!--</li>-->
-    <app-todo-list-item todos="'todos"></app-todo-list-item>
+    <app-todo-list-item [todo]="todo" *ngFor="let todo of todos" [delTodo]="delTodo" [updateTodo]="updateTodo"></app-todo-list-item>
   </ul>
 </div>
