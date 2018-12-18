@@ -1,0 +1,4 @@
+<li *ngFor="let todo of todos" (dblclick)="updateTodo(todo)">
+    {{todo}}
+    <button (click)="delTodo(todo)">x</button>
+</li>
