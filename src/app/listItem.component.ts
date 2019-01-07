@@ -15,15 +15,11 @@ export class ListItemComponent {
 
     constructor(public service: TodosService) {}
 
-    // On emet dans le composant l'id du todo à supprimer
-    @Output() idToDelete = new EventEmitter<number>();
-
     delTodo(id) {
-        this.idToDelete.emit(id);
+        this.service.delTodo(id);
     }
-    ///////////
 
-    alo() {
-        console.log(this.todo);
+    alo(str?) {
+        str ? console.log(str) : console.log('alo');
     }
 }

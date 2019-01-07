@@ -14,17 +14,16 @@ export class TodosService {
 
     addTodo(todoName) {
         const newTodo = new Todo();
-        // newTodo.id = this.todos.length; // Creation de l'id automatiquement
         newTodo.nom = todoName;
-        // this.todos.push(newTodo);
         const headers = new HttpHeaders();
         headers.append('Content-Type', 'application/json');
-        return this.http.post(this.todoDbUrl, newTodo, {headers: headers }).subscribe();
+        return this.http.post(this.todoDbUrl, newTodo, {headers: headers }).subscribe(() => this.getTodos());
+        // subscribe(...) permet de mettre à jour al liste de Todos
     }
 
     delTodo(id) {
         const deleteUrl = this.todoDbUrl + id;
-        return this.http.delete(deleteUrl);
+        return this.http.delete(deleteUrl).subscribe(() => this.getTodos());
     }
 
     updateTodo(todo: Todo) {
@@ -35,12 +34,21 @@ export class TodosService {
         return this.http.put(this.todoDbUrl + todo.id, todo, {headers: headers }).subscribe();
     }
 
+    // Retourne tous les todos depuis la db sous forme de tableau de Todo
+    getTodos() {
+        this.getTodosFromUrl().subscribe(
+            (data: Todo[]) => {
+                this.todos = data;
+            });
+    }
+
+    // Retourne un observable contenant les données de la db
     getTodosFromUrl(): Observable<Todo[]> {
         return this.http.get<Todo[]>(this.todoDbUrl);
     }
 
-    alo(s) {
-        console.log(s);
+    alo(str?) {
+        str ? console.log(str) : console.log('alo');
     }
 
 }
