@@ -13,11 +13,7 @@ import {Todo} from './todo.model';
 export class ListItemComponent {
     @Input() todo;
 
-    constructor(public service: TodosService) {}
-
-    delTodo(id) {
-        this.service.delTodo(id);
-    }
+    constructor(public todosService: TodosService) {}
 
     alo(str?) {
         str ? console.log(str) : console.log('alo');

@@ -12,20 +12,25 @@ export class TodosService {
 
     constructor(private http: HttpClient) { }
 
+    // Ajoute à la db le nouveau Todo de nom todoName
     addTodo(todoName) {
-        const newTodo = new Todo();
-        newTodo.nom = todoName;
-        const headers = new HttpHeaders();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(this.todoDbUrl, newTodo, {headers: headers }).subscribe(() => this.getTodos());
-        // subscribe(...) permet de mettre à jour al liste de Todos
+        if (todoName.length >= 1) {
+            const newTodo = new Todo();
+            newTodo.nom = todoName;
+            const headers = new HttpHeaders();
+            headers.append('Content-Type', 'application/json');
+            return this.http.post(this.todoDbUrl, newTodo, {headers: headers}).subscribe(() => this.getTodos());
+            // subscribe(...) permet de mettre à jour al liste de Todos
+        }
     }
 
+    // Supprime le todo d'id id
     delTodo(id) {
         const deleteUrl = this.todoDbUrl + id;
         return this.http.delete(deleteUrl).subscribe(() => this.getTodos());
     }
 
+    // Met à jour le Todo todo
     updateTodo(todo: Todo) {
         const newTodoName = prompt('Renommer le todo : ' + todo.nom, todo.nom);
         todo.nom = newTodoName;

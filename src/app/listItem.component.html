@@ -1,11 +1,11 @@
-<!--<li (dblclick)="service.updateTodo(todo)">-->
+<!--<li (dblclick)="todosService.updateTodo(todo)">-->
     <!--{{todo.nom}}-->
     <!--<button (click)="delTodo(todo)">x</button>-->
 <!--</li>-->
 
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title" (dblclick)="service.updateTodo(todo)"> {{todo.nom}} </h5>
-        <button (click)="delTodo(todo.id)" class="btn btn-danger">X</button>
+        <h5 class="card-title" (dblclick)="todosService.updateTodo(todo)"> {{todo.nom}} </h5>
+        <button (click)="todosService.delTodo(todo.id)" class="btn btn-danger">X</button>
     </div>
 </div>

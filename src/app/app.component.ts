@@ -10,11 +10,7 @@ import {TodosService} from './Todos.service';
 export class AppComponent {
     title = 'Ma TODO-list';
 
-    constructor(public service: TodosService) { // Injection du service
-        this.service.getTodos();
-    }
-
-    alo() {
-        alert('alo');
+    constructor(public todoService: TodosService) { // Injection du todosService
+        this.todoService.getTodos();
     }
 }
