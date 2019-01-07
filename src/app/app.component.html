@@ -6,10 +6,21 @@
 
 </div>
 
-<label>Nouveau TODO <input type="search" #newTodo (keyup.enter)="service.addTodo(newTodo.value)"></label><button (click)="service.addTodo(newTodo.value)">+</button>
+<!--<label>Nouveau TODO <input type="search" #newTodo (keyup.enter)="service.addTodo(newTodo.value)"></label><button (click)="service.addTodo(newTodo.value)">+</button>-->
 
-<div>
-  <ul>
-    <app-todo-list-item [todo]="todo" *ngFor="let todo of service.todos"></app-todo-list-item>
-  </ul>
+
+<div class="input-group mb-3">
+  <input type="text" class="form-control" #newTodo (keyup.enter)="service.addTodo(newTodo.value)" placeholder="Nom du nouveau TODO" aria-label="Recipient's username" aria-describedby="button-addon2">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="service.addTodo(newTodo.value)">Ajouter</button>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+  <!--<ul>-->
+    <app-todo-list-item [todo]="todo" (idToDelete)="onDeleted($event)" *ngFor="let todo of todos" class="col-sm-4"></app-todo-list-item>
+  <!--</ul>-->
+  </div>
 </div>
