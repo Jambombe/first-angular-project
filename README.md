@@ -1,11 +1,11 @@
 # FirstProject
 
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.3.
+
 ## Branch
 
 master : Todo list de base  
 json-server : gestion des todos avec la librairie json-server
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.3.
 
 ## Development server
 
