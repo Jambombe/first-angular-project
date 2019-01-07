@@ -6,10 +6,10 @@
 
 </div>
 
-<label>Nouveau TODO <input type="search" #newTodo (keyup.enter)="addTodo(newTodo.value)"></label><button (click)="addTodo(newTodo.value)">+</button>
+<label>Nouveau TODO <input type="search" #newTodo (keyup.enter)="service.addTodo(newTodo.value)"></label><button (click)="service.addTodo(newTodo.value)">+</button>
 
 <div>
   <ul>
-    <app-todo-list-item [todo]="todo" *ngFor="let todo of todos" [delTodo]="delTodo" [updateTodo]="updateTodo"></app-todo-list-item>
+    <app-todo-list-item [todo]="todo" *ngFor="let todo of service.todos"></app-todo-list-item>
   </ul>
 </div>
