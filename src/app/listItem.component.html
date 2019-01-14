@@ -1,11 +1,13 @@
-<!--<li (dblclick)="todosService.updateTodo(todo)">-->
-    <!--{{todo.nom}}-->
-    <!--<button (click)="delTodo(todo)">x</button>-->
-<!--</li>-->
-
-<div class="card">
+<div class="card" *ngIf="todo">
     <div class="card-body">
-        <h5 class="card-title" (dblclick)="todosService.updateTodo(todo)"> {{todo.nom}} </h5>
-        <button (click)="todosService.delTodo(todo.id)" class="btn btn-danger">X</button>
+        <h5 class="card-title" [id]="todo.id" (dblclick)="startEdit()" *ngIf="! editableMode"> {{todo.nom}} </h5>
+        <div class="edittodo" *ngIf="editableMode">
+            <input type="text" [(ngModel)]="todo.nom"  (blur)="finishEdit()"/>
+            <button (click)="finishEdit()" class="btn btn-success">O</button>
+        </div>
+
+        <button (click)="todosService.delTodo(todo.id)" class="btn btn-danger">X</button><!--
+        --><a class="btn btn-secondary" href="/todo/{{todo.id}}">Go</a>
+
     </div>
 </div>

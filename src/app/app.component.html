@@ -1,26 +1,42 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div>
-  <h1>
-    {{ title }} !
-  </h1>
+<!--<div>-->
+  <!--<h1>-->
+    <!--<a href="/">{{ title }} !</a>-->
+  <!--</h1>-->
 
-</div>
+<!--</div>-->
 
 <!--<label>Nouveau TODO <input type="search" #newTodo (keyup.enter)="todosService.addTodo(newTodo.value)"></label><button (click)="todosService.addTodo(newTodo.value)">+</button>-->
 
 
-<div class="input-group mb-3">
+<!-- <div class="input-group mb-3">
   <input type="text" class="form-control" #newTodo (keyup.enter)="todoService.addTodo(newTodo.value)" placeholder="Nom du nouveau TODO" aria-describedby="button-addon2">
   <div class="input-group-append">
     <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="todoService.addTodo(newTodo.value)">Ajouter</button>
   </div>
-</div>
+</div> -->
+
+<!--<div>-->
+  <!--<router-outlet></router-outlet>-->
+<!--</div>-->
 
 
 <div class="container">
   <div class="row">
   <!--<ul>-->
-    <app-todo-list-item [todo]="todo" *ngFor="let todo of todoService.todos" class="col-sm-3"></app-todo-list-item>
+    <app-todo-list-item *ngFor="let todo of todoService.todos" [todo]="todo" class="col-sm-3"></app-todo-list-item>
+    <!--<app-todo-list-item *ngFor="let todo of todoService.todos" class="col-sm-3"></app-todo-list-item>-->
   <!--</ul>-->
   </div>
 </div>
+
+<app-pagination
+        (goPage)="goToPage($event)"
+        (goNext)="onNext()"
+        (goPrev)="onPrev()"
+        [pagesToShow]="3"
+        [page]="page"
+        [perPage]="limit"
+        [count]="total">
+
+</app-pagination>

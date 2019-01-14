@@ -1,0 +1,16 @@
+<div>
+    <h1>
+        <a href="/">{{ title }} !</a>
+    </h1>
+</div>
+
+
+<!-- Ajout nouveau TODO -->
+<div class="input-group mb-3">
+    <input type="text" class="form-control" #newTodo (keyup.enter)="todoService.addTodo(newTodo.value)" placeholder="Nom du nouveau TODO" aria-describedby="button-addon2">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="todoService.addTodo(newTodo.value)">Ajouter</button>
+    </div>
+</div>
+
+<router-outlet></router-outlet>

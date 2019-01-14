@@ -9,11 +9,28 @@ body {
     margin: 20px auto auto auto;
 }
 
-.btn-danger {
+.btn-success, .btn-danger, .btn-secondary {
     color: white !important;
     font-weight: bold;
 }
 
 div.card {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+div.edittodo input, div.edittodo button {
+    display: inline;
+}
+
+div.edittodo input {
+    width: 70%;
+    margin-right: 5%;
+}
+
+div.edittodo button {
+    width: 20px;
+    height: 20px;
+    padding: 0px;
+    text-align: center;
+    vertical-align: middle;
 }

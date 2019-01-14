@@ -1,8 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 
-import { AppComponent } from './app.component';
 import {TodosService} from './Todos.service';
-import {Todo} from './todo.model';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-todo-list-item',
@@ -10,10 +9,39 @@ import {Todo} from './todo.model';
     styleUrls: ['./app.component.css']
 })
 
-export class ListItemComponent {
+export class ListItemComponent implements OnInit, OnDestroy {
     @Input() todo;
+    editableMode = false;
 
-    constructor(public todosService: TodosService) {}
+    // Variables pour routes
+    private id: number;
+
+    constructor(public todosService: TodosService, private route: ActivatedRoute) {
+    }
+
+    startEdit() {
+        this.editableMode = true;
+    }
+
+    finishEdit() {
+        this.todosService.updateTodo(this.todo, this.todo.nom);
+        this.editableMode = false;
+    }
+
+    async ngOnInit() {
+        if (this.todo === null || this.todo === undefined) {
+            this.id = +this.route.snapshot.paramMap.get('id');
+            console.log(+this.route.snapshot.paramMap.get('id'));
+            console.log(this.id);
+            console.log('Av get : ' + this.todo);
+            this.todo = await this.todosService.getTodoById(this.id);
+            console.log('Apr get : ' + this.todo);
+        }
+    }
+
+    ngOnDestroy(): void {
+        // this.sub.unsubscribe();
+    }
 
     alo(str?) {
         str ? console.log(str) : console.log('alo');

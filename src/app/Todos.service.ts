@@ -4,6 +4,8 @@ import {Injectable} from '@angular/core';
 import {Todo} from './todo.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {element} from 'protractor';
+import {angularCoreEnv} from '@angular/core/src/render3/jit/environment';
 
 @Injectable() // Signifie que cette classe est injectable. Ne pas oublier de l'ajouter dans app.module.ts -> providers
 export class TodosService {
@@ -13,38 +15,37 @@ export class TodosService {
     constructor(private http: HttpClient) { }
 
     // Ajoute à la db le nouveau Todo de nom todoName
-    addTodo(todoName) {
+    async addTodo(todoName) {
         if (todoName.length >= 1) {
             const newTodo = new Todo();
             newTodo.nom = todoName;
             const headers = new HttpHeaders();
             headers.append('Content-Type', 'application/json');
-            return this.http.post(this.todoDbUrl, newTodo, {headers: headers}).subscribe(() => this.getTodos());
-            // subscribe(...) permet de mettre à jour al liste de Todos
+            await this.http.post(this.todoDbUrl, newTodo, {headers: headers}).toPromise();
+            this.getTodos();
         }
     }
 
     // Supprime le todo d'id id
-    delTodo(id) {
+    async delTodo(id) {
         const deleteUrl = this.todoDbUrl + id;
-        return this.http.delete(deleteUrl).subscribe(() => this.getTodos());
+        // const a = await this.http.delete(deleteUrl).subscribe(() => this.getTodos());
+        await this.http.delete(deleteUrl).toPromise();
+        this.getTodos(); // Cette ligne sera executee UNIQUEMENT quand la ligne avec 'await' aura fini son traitement
     }
 
     // Met à jour le Todo todo
-    updateTodo(todo: Todo) {
-        const newTodoName = prompt('Renommer le todo : ' + todo.nom, todo.nom);
-        todo.nom = newTodoName;
+    async updateTodo(todo: Todo, newTodoName) {
+        // const newTodoName = prompt('Renommer le todo : ' + todo.nom, todo.nom);
+        // todo.nom = newTodoName;
         const headers = new HttpHeaders();
         headers.append('Content-Type', 'application/json');
-        return this.http.put(this.todoDbUrl + todo.id, todo, {headers: headers }).subscribe();
+        await this.http.put(this.todoDbUrl + todo.id, todo, {headers: headers }).toPromise();
     }
 
     // Retourne tous les todos depuis la db sous forme de tableau de Todo
-    getTodos() {
-        this.getTodosFromUrl().subscribe(
-            (data: Todo[]) => {
-                this.todos = data;
-            });
+    async getTodos() {
+        this.todos = await this.getTodosFromUrl().toPromise();
     }
 
     // Retourne un observable contenant les données de la db
@@ -52,8 +53,17 @@ export class TodosService {
         return this.http.get<Todo[]>(this.todoDbUrl);
     }
 
+    async getTodoById(id) {
+        const todo = await this.http.get<Todo>(this.todoDbUrl + id).toPromise();
+        console.log(todo);
+        return todo;
+    }
+
     alo(str?) {
         str ? console.log(str) : console.log('alo');
     }
 
+    async getTodosLimit(page: any, limit: any) {
+        return await this.http.get<Todo[]>(this.todoDbUrl + '?_page=' + page + '&_limit=' + limit).toPromise();
+    }
 }
