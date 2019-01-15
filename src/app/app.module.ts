@@ -12,8 +12,10 @@ import {PaginationComponent} from './pagination/pagination.component';
 
 const appRoutes: Routes = [
   { path: 'todo/:id', component: ListItemComponent, data: {animation: '/'} },
-  { path: 'todos', component: AppComponent, data: {animation: '/'} },
-  { path: '', redirectTo: 'todos', pathMatch: 'full', data: {animation: '/'} }
+    // { path: 'todos', component: AppComponent, data: {animation: '/'} },
+  { path: '', redirectTo: 'todos/1', pathMatch: 'full', data: {animation: '/'} },
+  { path: 'todos', redirectTo: 'todos/1', pathMatch: 'full', data: {animation: '/'} },
+  { path: 'todos/:id', component: AppComponent }
 ];
 
 @NgModule({

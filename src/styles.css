@@ -34,3 +34,7 @@ div.edittodo button {
     text-align: center;
     vertical-align: middle;
 }
+
+i {
+    color: white !important;
+}

@@ -6,8 +6,8 @@
             <button (click)="finishEdit()" class="btn btn-success">O</button>
         </div>
 
-        <button (click)="todosService.delTodo(todo.id)" class="btn btn-danger">X</button><!--
-        --><a class="btn btn-secondary" href="/todo/{{todo.id}}">Go</a>
+        <button (click)="todosService.delTodo(todo.id)" class="btn btn-danger"><i class="fa fa-times"></i></button>
+        <a class="btn btn-secondary" href="/todo/{{todo.id}}"><i class="fa fa-eye"></i></a>
 
     </div>
 </div>

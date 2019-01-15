@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TodosService} from './Todos.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-component',
@@ -13,16 +14,20 @@ export class AppComponent implements OnInit{
     public currentTodos;
 
     loading = false;
-    total = 20; // Nombre total de Todos dansla db
+    total = 20; // Nombre total de Todos dans la db
     page = 1; // Page actuelle
     limit = 8; // Limite de todos par page
 
-    constructor(public todoService: TodosService) { // Injection du todosService
+    constructor(public todoService: TodosService, private route: ActivatedRoute) { // Injection du todosService
         // this.currentTodos = this.getTodos();
     }
 
     ngOnInit() {
         this.getTodos();
+        if (this.route.snapshot.paramMap.has('id')) {
+            this.page = +this.route.snapshot.paramMap.get('id');
+            this.goToPage(this.page);
+        }
     }
 
     async getTodos() {
