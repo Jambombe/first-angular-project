@@ -4,8 +4,6 @@ import {Injectable} from '@angular/core';
 import {Todo} from './todo.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {element} from 'protractor';
-import {angularCoreEnv} from '@angular/core/src/render3/jit/environment';
 
 @Injectable() // Signifie que cette classe est injectable. Ne pas oublier de l'ajouter dans app.module.ts -> providers
 export class TodosService {
@@ -64,6 +62,18 @@ export class TodosService {
     }
 
     async getTodosLimit(page: any, limit: any) {
-        return await this.http.get<Todo[]>(this.todoDbUrl + '?_page=' + page + '&_limit=' + limit).toPromise();
+        // const a = await this.http.get<Todo[]>(this.todoDbUrl + '?_page=' + page + '&_limit=' + limit).toPromise();
+        const rep = await this.http.get<any>(this.todoDbUrl + '?_page=' + page + '&_limit=' + limit, { observe: 'response'}).toPromise();
+        // const keys = resp.headers.keys();
+        // const headers = (keys.map(key => `${key}: ${resp.headers.get(key)}`));
+        // const body = `${ resp.body }`;
+        // console.log(rep.headers.get('x-total-count'));
+        return rep.body;
+    }
+
+    async getTodosNumber() {
+        const rep = await this.http.get<any>(this.todoDbUrl + '?&_limit=1', { observe: 'response'}).toPromise();
+        const total = await rep.headers.get('x-total-count');
+        return total; // rep.headers.get('x-total-count');
     }
 }

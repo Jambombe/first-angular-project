@@ -10,28 +10,33 @@ import {TodosService} from './Todos.service';
 export class AppComponent implements OnInit{
     title = 'Ma TODO-list';
 
+    public currentTodos;
+
     loading = false;
-    total = 30;
-    page = 1;
-    limit = 20;
+    total = 20; // Nombre total de Todos dansla db
+    page = 1; // Page actuelle
+    limit = 8; // Limite de todos par page
 
     constructor(public todoService: TodosService) { // Injection du todosService
-        this.todoService.getTodos();
+        // this.currentTodos = this.getTodos();
     }
 
     ngOnInit() {
         this.getTodos();
     }
 
-    getTodos() {
+    async getTodos() {
         this.loading = true;
-        this.todoService.getTodosLimit(this.page, this.limit);
+        this.currentTodos = this.todoService.getTodosLimit(this.page, this.limit);
+        this.total = + await this.todoService.getTodosNumber();
     }
 
 
     goToPage(n: number) {
-        this.page = n;
-        this.getTodos();
+        if (this.page !== n) { // Si la page actuelle est la meme que celle demandee ...
+            this.page = n; // ... on ne change pas de page
+            this.getTodos();
+        }
     }
 
     onNext() {
